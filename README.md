@@ -1,7 +1,12 @@
 # My-project
- this is description
- and
- these are screenshots
+
+Game 
+
+Rugby-like 
+
+Unity 2019.4.x
+
+Android
  
  
  ![alt text](ss1.png)
