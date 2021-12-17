@@ -37,10 +37,6 @@ public class MatchController : MonoBehaviour
     Material player1Material;
     Material player2Material;
 
-    private void Start() {
-        Init();
-    }
-
     public void Init() {
         atkWinCount = 0;
         defWinCount = 0;
