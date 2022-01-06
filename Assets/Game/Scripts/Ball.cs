@@ -49,7 +49,6 @@ public class Ball : MonoBehaviour
             transform.position = targetPass + Vector3.up;
         }
     }
-
     
     private void OnCollisionEnter(Collision other) {
         if (other.collider.CompareTag("Field"))
