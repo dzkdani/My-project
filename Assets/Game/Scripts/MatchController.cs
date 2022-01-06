@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MatchController : MonoBehaviour
 {
@@ -16,14 +17,16 @@ public class MatchController : MonoBehaviour
 
     private const int MAXMATCH = 5;
     private const float TIMEPERMATCH = 140f;
-    private int atkWinCount;
-    private int defWinCount;
+    private int blueWinCount;
+    private int redWinCount;
 
     [Header("Match Status")]
     public bool IsPlaying;
     public int matchCount;
 
     [Header("Scripts Component")]
+    public Button pauseButton;
+    public GameObject paused;
     public Timer Timer;
     public SpawnController Spawn;
     public ResultController Result;
@@ -38,8 +41,8 @@ public class MatchController : MonoBehaviour
     Material player2Material;
 
     public void Init() {
-        atkWinCount = 0;
-        defWinCount = 0;
+        blueWinCount = 0;
+        redWinCount = 0;
 
         player1Material = Player1Gate.GetComponent<Renderer>().material;
         player2Material = Player2Gate.GetComponent<Renderer>().material;
@@ -47,6 +50,8 @@ public class MatchController : MonoBehaviour
         matchCount = 0;
         Spawn = SpawnController.Instance;
         MatchStart();
+
+        pauseButton.onClick.AddListener(delegate {MatchPause();});
     }
 
     public void MatchStart() {
@@ -74,29 +79,43 @@ public class MatchController : MonoBehaviour
         matchCount += 1;
     }
 
-    public void MatchEnd(string _winner) {
-        IsPlaying = false;
-        Result.SetMatchWinner(_winner);
-        
-        if (_winner == "Attacker")
+    private void MatchPause() {
+        if (IsPlaying)
         {
-            atkWinCount++;
+            IsPlaying = false;
+            paused.SetActive(true);
+        }
+        else
+        {
+            IsPlaying = true;
+            paused.SetActive(false);
+        }
+    }
+
+    public void MatchEnd(Color _winner) {
+        IsPlaying = false;
+        
+        if (_winner == Color.blue)
+        {
+            blueWinCount++;
+            Result.SetMatchWinner("Blue", redWinCount, blueWinCount);
         }
 
-        if (_winner == "Defender")
+        if (_winner == Color.red)
         {
-            defWinCount++;
+            redWinCount++;
+            Result.SetMatchWinner("Red", redWinCount, blueWinCount);
         }
 
         if (matchCount == MAXMATCH)
         {
-            if (atkWinCount > defWinCount)
+            if (blueWinCount > redWinCount)
             {
-                Result.SetGameWinner("Attacker");
+                Result.SetGameWinner("Blue");
             }
             else
             {
-                Result.SetGameWinner("Defender");
+                Result.SetGameWinner("Red");
             }
         }
     }

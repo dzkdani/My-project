@@ -9,15 +9,17 @@ public class ResultController : MonoBehaviour
     [Header("Result Component")]
     public GameObject resultPanel;
     public TextMeshProUGUI resultText;
+    public TextMeshProUGUI scoreText;
     public Button nextButton;
 
     private void OnEnable() {
         nextButton.onClick.AddListener(delegate {MatchController.Instance.MatchStart();});
     }
 
-    public void SetMatchWinner(string _winner) {
+    public void SetMatchWinner(string _winner, int _red, int _blue) {
         resultPanel.SetActive(true);
         resultText.text = _winner+"\nWON";
+        scoreText.text = "Score\n RED "+_red+" : "+" "+_blue+" BLUE";
     }
 
     public void SetGameWinner(string _winner) {

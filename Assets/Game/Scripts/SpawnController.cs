@@ -42,9 +42,10 @@ public class SpawnController : MonoBehaviour
 
     #region Control
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) // || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+#if UNITY_ANDROID
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            var input = Input.mousePosition; //Input.GetTouch(0).position
+            var input = Input.GetTouch(0).position;
             Vector3 spawnPos = Camera.main.ScreenToWorldPoint(input);
             spawnPos += Vector3.down * 24;
             Ray ray = Camera.main.ScreenPointToRay(input);
@@ -61,6 +62,29 @@ public class SpawnController : MonoBehaviour
                 }
             }
         }
+#endif
+
+#if UNITY_EDITOR_WIN
+        if (Input.GetMouseButtonDown(0))
+        {
+            var input = Input.mousePosition;
+            Vector3 spawnPos = Camera.main.ScreenToWorldPoint(input);
+            spawnPos += Vector3.down * 24;
+            Ray ray = Camera.main.ScreenPointToRay(input);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.name.Contains(DEFENDER))
+                {
+                    UnitSpawner(DEFENDER, spawnPos);
+                }
+                if (hit.transform.name.Contains(ATTACKER))
+                {
+                    UnitSpawner(ATTACKER, spawnPos);
+                }
+            }
+        }
+#endif
     }
     #endregion
 

@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
         if (timeLeft <= 0)
         {
             timerOn = false;
-            MatchController.Instance.MatchEnd("Draw");
+            MatchController.Instance.MatchEnd(Color.gray);
         }
     }
 

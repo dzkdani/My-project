@@ -252,9 +252,8 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            Debug.Log("Lose");
             Destroy(ball);
-            MatchController.Instance.MatchEnd("Defender");
+            MatchController.Instance.MatchEnd(CheckDefenderColor());
             return Vector3.zero;
         }
     }
@@ -288,9 +287,8 @@ public class Unit : MonoBehaviour
         {
             if (IsHoldingBall)
             {
-                Debug.Log("Win");
                 Destroy(ball);
-                MatchController.Instance.MatchEnd("Attacker");
+                MatchController.Instance.MatchEnd(CheckAttackerColor());
             }
         }
 
