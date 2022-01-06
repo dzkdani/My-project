@@ -125,10 +125,6 @@ public class Energy : MonoBehaviour
             else
             {
                 AttackerEnergyBar[atkCurrEnergy].fillRect.GetComponent<Image>().color = MaxEnergyPoints(AttackerEnergyBar[atkCurrEnergy]);
-            }
-
-            if (CheckEnergyPoints(AttackerEnergyBar[atkCurrEnergy]))
-            {
                 atkCurrEnergy++;
             }
         } 
@@ -143,24 +139,9 @@ public class Energy : MonoBehaviour
             else
             {
                 DefenderEnergyBar[defCurrEnergy].fillRect.GetComponent<Image>().color = MaxEnergyPoints(DefenderEnergyBar[defCurrEnergy]);
-            }
-
-            if (CheckEnergyPoints(DefenderEnergyBar[defCurrEnergy]))
-            {
                 defCurrEnergy++;
             }
         } 
-    }
-
-    private bool CheckEnergyPoints(Slider _energyPoint)
-    {
-        if (_energyPoint.value == ENERGYPOINT)
-        {
-            _energyPoint.fillRect.GetComponent<Image>().color = MaxEnergyPoints(_energyPoint);
-            return true;
-        }
-
-        return false;
     }
     #endregion
 
@@ -169,19 +150,20 @@ public class Energy : MonoBehaviour
     {
         switch (type)
         {
-            case Type.Attacker : 
-            for (int i = atkCurrEnergy-1; i >= atkCurrEnergy-atkEnergyCost; i--)
-            {
-                AttackerEnergyBar[i].value = 0;
-            }
-            atkCurrEnergy -= atkEnergyCost;
+            case Type.Attacker :
+                for (int i = atkCurrEnergy-1; i >= atkCurrEnergy-atkEnergyCost; i--)
+                {
+                    AttackerEnergyBar[i].value = 0;
+                }
+                atkCurrEnergy -= atkEnergyCost;
+                Debug.Log(atkCurrEnergy);
             break;
             case Type.Defender :
-            for (int i = defCurrEnergy-1; i >= defCurrEnergy-defEnergyCost; i--)
-            {
-                DefenderEnergyBar[i].value = 0;
-            }
-            defCurrEnergy -= defEnergyCost;
+                for (int i = defCurrEnergy-1; i >= defCurrEnergy-defEnergyCost; i--)
+                {
+                    DefenderEnergyBar[i].value = 0;
+                }
+                defCurrEnergy -= defEnergyCost;
             break;
         }
     }
