@@ -80,6 +80,8 @@ public class MatchController : MonoBehaviour
     }
 
     private void MatchPause() {
+        SoundController.Instance.SelectSFX("button");
+
         if (IsPlaying)
         {
             IsPlaying = false;

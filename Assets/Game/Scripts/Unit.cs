@@ -280,6 +280,7 @@ public class Unit : MonoBehaviour
 
         if (other.CompareTag("Fence"))
         {
+            SoundController.Instance.SelectSFX("destroy");
             SpawnController.Instance.ReturnToPool(gameObject);
         }
 
@@ -287,6 +288,7 @@ public class Unit : MonoBehaviour
         {
             if (IsHoldingBall)
             {
+                SoundController.Instance.SelectSFX("matchend");
                 Destroy(ball);
                 MatchController.Instance.MatchEnd(CheckAttackerColor());
             }
@@ -332,6 +334,7 @@ public class Unit : MonoBehaviour
                 //second collision with defender
                 if (FindAttackerWithBall && Vector3.Distance(transform.position, other.GetComponent<Transform>().position) < 1)
                 {
+                    SoundController.Instance.SelectSFX("catch");
                     FindAttackerWithBall = false;
                     transform.position = transform.position;
                     material.color = inactiveColor;
