@@ -64,7 +64,6 @@ public class SpawnController : MonoBehaviour
         }
 #endif
 
-#if UNITY_EDITOR_WIN
         if (Input.GetMouseButtonDown(0))
         {
             var input = Input.mousePosition;
@@ -84,7 +83,6 @@ public class SpawnController : MonoBehaviour
                 }
             }
         }
-#endif
     }
     #endregion
 
